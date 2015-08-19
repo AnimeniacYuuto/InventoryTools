@@ -1,0 +1,11 @@
+itemGroup.InventoryTools=Inventory Tools
+
+tile.inventorytools:toolbench.name=Tool Bench
+
+item.inventorytools:toolbox.name=Tool Box
+item.inventorytools:dolly.name=Dolly
+item.inventorytools:dollyAdvanced.name=Advanced Dolly
+
+InvTools.ShiftForToolBoxInfo.string=-Hold Shift For Tool Box Info-
+InvTools.Item.string=Item 
+InvTools.Empty.string=Empty
