@@ -48,15 +48,12 @@ public final class DollyHandlerRegistry {
 		return blackListAll.add(data);
 	}
 	public final static boolean addToBlackListNormal(String id){
-		System.out.println("Adding "+id+" to normal black list");
 		String[] parts = id.split(":", 4);
 		if(parts == null || parts.length < 1)
 			return false;
-		System.out.println("Ther were "+parts.length+" parts in "+id+" to add to normal");
 		Block b = GameRegistry.findBlock(parts.length==1 ? "minecraft" : parts[0], parts.length==1 ? parts[0] : parts[1]);
 		if(b == null)
 			return false;
-		System.out.println("Found Block");
 		int meta=OreDictionary.WILDCARD_VALUE;
 		if(parts.length >= 3){
 			try{
@@ -65,14 +62,12 @@ public final class DollyHandlerRegistry {
 				meta=OreDictionary.WILDCARD_VALUE;
 			}
 		}
-		System.out.println("Adding Meta "+meta);
 		return addToBlackListNormal(new BlockData(b, meta));
 	}
 	public final static boolean addToBlackListNormal(Block b, int meta){
 		return addToBlackListNormal(new BlockData(b, meta));
 	}
 	public final static boolean addToBlackListNormal(BlockData data){
-		System.out.println("Adding data for "+data.block.getLocalizedName()+":"+data.meta);
 		return blackListNormal.add(data);
 	}
 	
@@ -119,9 +114,7 @@ public final class DollyHandlerRegistry {
 		return false;
 	}
 	public final static IDollyTileHandler getTileHandler(TileEntity tile){
-		System.out.println("Getting handler for "+tile.getClass().getName());
 		for(Class<? extends TileEntity> clazz : tileMap.keySet()){
-			System.out.println("Checking "+clazz.getName());
 			if(clazz.isInstance(tile)){
 				return tileMap.get(clazz);
 			}
@@ -152,9 +145,7 @@ public final class DollyHandlerRegistry {
 		return false;
 	}
 	private final static boolean isBlackListedForNormall(Block b, int meta){
-		System.out.println("Checking normal black list for "+b.getLocalizedName());
 		for(BlockData d : blackListNormal){
-			System.out.println("Checking normal black entry "+d.block.getLocalizedName());
 			if(d.block == b && (d.meta == OreDictionary.WILDCARD_VALUE || d.meta == meta))
 				return true;
 		}

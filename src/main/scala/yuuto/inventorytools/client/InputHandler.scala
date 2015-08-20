@@ -21,7 +21,7 @@ object InputHandler {
   def handleKeyPress(event:InputEvent.KeyInputEvent){
     val player:EntityPlayer = Minecraft.getMinecraft().thePlayer;
     if(KeyBindings.TOOL_BOX.isPressed()){
-      System.out.println("Checking fool");
+      //System.out.println("Checking fool");
       if(player.inventory.getCurrentItem() == null)
         return;
       if(!NBTHelper.hasTag(player.inventory.getCurrentItem(),NBTTags.TOOL_BOX_INV)){
