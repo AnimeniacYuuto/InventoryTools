@@ -1,0 +1,16 @@
+[
+{
+  "modid": "InventoryTools",
+  "name": "Inventory Tools",
+  "description": "Tools, often involving inventories!",
+  "version": "@VERSION@",
+  "mcversion": "@MCVERSION@",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Yuuto"],
+  "credits": "aidancbrady, Lumaceon, ChickenBones",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
