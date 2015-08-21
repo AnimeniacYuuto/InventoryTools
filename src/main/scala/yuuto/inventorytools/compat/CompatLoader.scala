@@ -9,6 +9,7 @@ import yuuto.inventorytools.api.dolly.handlers.ChestDollyTileHandler
 import yuuto.inventorytools.compat.handlers.JabbaBarrelBlockHandler
 import yuuto.inventorytools.compat.handlers.JabbaBarrelTileHandler
 import yuuto.inventorytools.compat.handlers.TinyStorageDollyTileHandler
+import yuuto.inventorytools.compat.handlers.StorageDrawrsDollyTileHandler
 
 object CompatLoader {
   def loadCompatHandlers(){
@@ -25,6 +26,9 @@ object CompatLoader {
     }
     if(Loader.isModLoaded("compactstorage")){
       DollyHandlerRegistry.registerTileHandler("com.tattyseal.compactstorage.tileentity.TileEntityChest", ChestDollyTileHandler.getInstance());
+    }
+    if(Loader.isModLoaded("StorageDrawers")){
+      DollyHandlerRegistry.registerTileHandler("com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawers", StorageDrawrsDollyTileHandler.getInstance());
     }
   }
 }

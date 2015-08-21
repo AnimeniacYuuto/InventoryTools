@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="libs/ironchest-1.7.10-6.0.62.742-deobf.jar"/>
 	<classpathentry kind="lib" path="libs/Jabba-1.2.1a_1.7.10-dev.jar"/>
 	<classpathentry kind="lib" path="libs/TinyStorage-1.7.10_1.20.0_140-Dev-dev.jar"/>
+	<classpathentry kind="lib" path="libs/StorageDrawers-1.7.10-1.5.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
