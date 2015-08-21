@@ -12,6 +12,7 @@ import yuuto.inventorytools.api.dolly.handlers.defaults.block.DefaultDollyBlockH
 import yuuto.inventorytools.api.dolly.handlers.defaults.block.IDollyBlockHandler;
 import yuuto.inventorytools.api.dolly.handlers.defaults.tile.DefaultDollyTileHandler;
 import yuuto.inventorytools.api.dolly.handlers.defaults.tile.IDollyTileHandler;
+import yuuto.inventorytools.until.LogHelperIT;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class DollyHandlerRegistry {
@@ -94,6 +95,18 @@ public final class DollyHandlerRegistry {
 	public final static boolean registerBlockHandler(BlockData data, IDollyBlockHandler handler){
 		blockMap.put(data, handler);
 		return blockMap.get(data)==handler;
+	}
+	public final static boolean registerTileHandler(String clazzName, IDollyTileHandler handler){
+		try{ 
+			@SuppressWarnings("unchecked")
+			Class<? extends TileEntity> clazz=(Class<? extends TileEntity>)Class.forName(clazzName);
+			return registerTileHandler(clazz, handler);
+		}catch(ClassNotFoundException e){
+        	LogHelperIT.Error("Could not add "+handler.getID()+" for "+clazzName+" class not found", e);
+		}catch(ClassCastException e){
+			LogHelperIT.Error("Could not add "+handler.getID()+" for "+clazzName+" class is not a Tile Entity", e);
+		}
+		return false;
 	}
 	public final static boolean registerTileHandler(Class<? extends TileEntity> clazz, IDollyTileHandler handler){
 		if(!tileHandlerMap.containsKey(handler.getID())){

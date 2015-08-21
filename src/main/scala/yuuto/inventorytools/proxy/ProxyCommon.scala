@@ -23,6 +23,7 @@ import yuuto.inventorytools.config.ConfigurationIT
 import yuuto.inventorytools.items.ItemDolly
 import yuuto.yuutolib.recipe.RecipeHelper
 import net.minecraft.item.ItemStack
+import yuuto.inventorytools.compat.CompatLoader
 
 object ProxyCommon{
   final val blockToolBench:Block = new BlockToolBench("toolbench");
@@ -72,5 +73,6 @@ class ProxyCommon extends IProxy{
 
   override def postInit(event:FMLPostInitializationEvent){
     ConfigurationIT.postInit(event);
+    CompatLoader.loadCompatHandlers();
   }
 }

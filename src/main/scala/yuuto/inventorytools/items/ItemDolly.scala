@@ -126,6 +126,7 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
       return false;
     stack.setItemDamage(1);
     ItemDolly.isPickingUp=true;
+    world.removeTileEntity(x, y, z);
     world.setBlockToAir(x, y, z);
     ItemDolly.isPickingUp=false;
     player.inventoryContainer.detectAndSendChanges();
@@ -221,8 +222,8 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
   
   @SubscribeEvent
   def onEntitySpawn(event:EntityJoinWorldEvent){
-    if(event.entity.isInstanceOf[EntityItem] && ItemDolly.isPickingUp){
-      event.setCanceled(true);
-    }
+    //if(event.entity.isInstanceOf[EntityItem] && ItemDolly.isPickingUp){
+    //  event.setCanceled(true);
+    //}
   }
 }
