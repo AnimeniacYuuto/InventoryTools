@@ -10,12 +10,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.ForgeDirection;
 import yuuto.inventorytools.api.dolly.BlockData;
 import yuuto.inventorytools.api.dolly.InventoryMerger;
+import yuuto.inventorytools.api.dolly.RotationUtils;
 import yuuto.inventorytools.api.dolly.handlers.defaults.tile.DefaultDollyTileHandler;
 import yuuto.inventorytools.compat.storagedrawers.CompDrawerDataWrapper;
 import yuuto.inventorytools.compat.storagedrawers.DummyCentralInventory;
@@ -27,16 +26,16 @@ import com.jaquadro.minecraft.storagedrawers.block.BlockCompDrawers;
 import com.jaquadro.minecraft.storagedrawers.storage.CompDrawerData;
 import com.jaquadro.minecraft.storagedrawers.storage.DrawerData;
 
-public class StorageDrawrsDollyTileHandler extends DefaultDollyTileHandler{
+public class StorageDrawersDollyTileHandler extends DefaultDollyTileHandler{
 	
-	protected static StorageDrawrsDollyTileHandler instance=null;
-	public static final StorageDrawrsDollyTileHandler getInstance(){
+	protected static StorageDrawersDollyTileHandler instance=null;
+	public static final StorageDrawersDollyTileHandler getInstance(){
 		if(instance==null)
-			instance=new StorageDrawrsDollyTileHandler();
+			instance=new StorageDrawersDollyTileHandler();
 		return instance;
 	}
 	
-	private StorageDrawrsDollyTileHandler(){}
+	private StorageDrawersDollyTileHandler(){}
 	
 	
 	@Override
@@ -58,7 +57,7 @@ public class StorageDrawrsDollyTileHandler extends DefaultDollyTileHandler{
 		nbt.setInteger("y", y);
 		nbt.setInteger("z", z);
 		
-		nbt.setInteger("Dir", (short)this.getDrawrOrientationOnPlacement(player).ordinal());
+		nbt.setInteger("Dir", (short)RotationUtils.getOrientationOnPlacement(player).ordinal());
 		tile.readFromNBT(nbt);
 	}
 	@Override
@@ -106,25 +105,6 @@ public class StorageDrawrsDollyTileHandler extends DefaultDollyTileHandler{
 				return true;
 		}
 		return false;
-	}
-	
-	private ForgeDirection getDrawrOrientationOnPlacement(EntityPlayer player) {
-		ForgeDirection drawerOrientation = ForgeDirection.UNKNOWN;
-		Vec3 playerLook = player.getLookVec();
-		if (Math.abs(playerLook.xCoord) >= Math.abs(playerLook.zCoord)) {
-			if (playerLook.xCoord > 0)
-				drawerOrientation = ForgeDirection.WEST;
-			else
-				drawerOrientation = ForgeDirection.EAST;
-		} else {
-			if (playerLook.zCoord > 0)
-				drawerOrientation = ForgeDirection.NORTH;
-			else
-				drawerOrientation = ForgeDirection.SOUTH;
-		}
-
-		return drawerOrientation;
-
 	}
 	
 	private List<IDrawer> getDrawers(BlockData data){

@@ -8,6 +8,8 @@ public class InventoryMerger {
 	public static void mergeStackIntoInventory(ItemStack toMerge, IInventory target){
 		int maxSize=Math.min(toMerge.getMaxStackSize(), target.getInventoryStackLimit());
 		for(int i = 0; i < target.getSizeInventory() && toMerge.stackSize > 0; i++){
+			if(!target.isItemValidForSlot(i, toMerge))
+				continue;
 			if(target.getStackInSlot(i) == null){
 				target.setInventorySlotContents(i, toMerge.copy());
 				if(target.getStackInSlot(i) == null)

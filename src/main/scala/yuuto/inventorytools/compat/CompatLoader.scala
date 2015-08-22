@@ -9,7 +9,9 @@ import yuuto.inventorytools.api.dolly.handlers.ChestDollyTileHandler
 import yuuto.inventorytools.compat.handlers.JabbaBarrelBlockHandler
 import yuuto.inventorytools.compat.handlers.JabbaBarrelTileHandler
 import yuuto.inventorytools.compat.handlers.TinyStorageDollyTileHandler
-import yuuto.inventorytools.compat.handlers.StorageDrawrsDollyTileHandler
+import yuuto.inventorytools.compat.handlers.StorageDrawersDollyTileHandler
+import yuuto.inventorytools.compat.handlers.CompChestDollyBlockHandler
+import yuuto.inventorytools.compat.handlers.CompChestDollyTileHandler
 
 object CompatLoader {
   def loadCompatHandlers(){
@@ -25,10 +27,12 @@ object CompatLoader {
       DollyHandlerRegistry.registerTileHandler("com.timthebrick.tinystorage.common.tileentity.TileEntityTinyStorage", TinyStorageDollyTileHandler.getInstance())
     }
     if(Loader.isModLoaded("compactstorage")){
-      DollyHandlerRegistry.registerTileHandler("com.tattyseal.compactstorage.tileentity.TileEntityChest", ChestDollyTileHandler.getInstance());
+      DollyHandlerRegistry.registerBlockHandler("compactstorage:compactChest", CompChestDollyBlockHandler.getInstance());
+      DollyHandlerRegistry.registerBlockHandler("compactstorage:sortingCompactChest", CompChestDollyBlockHandler.getInstance());
+      DollyHandlerRegistry.registerTileHandler("com.tattyseal.compactstorage.tileentity.TileEntityChest", CompChestDollyTileHandler.getInstanceCompChest());
     }
     if(Loader.isModLoaded("StorageDrawers")){
-      DollyHandlerRegistry.registerTileHandler("com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawers", StorageDrawrsDollyTileHandler.getInstance());
+      DollyHandlerRegistry.registerTileHandler("com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawers", StorageDrawersDollyTileHandler.getInstance());
     }
   }
 }

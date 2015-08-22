@@ -197,7 +197,9 @@ public class JabbaBarrelTileHandler extends DefaultDollyTileHandler{
 		HashMap<Integer, HashSet<Integer>> links = null;
 		try {
 			links = (HashMap<Integer, HashSet<Integer>>)linksField.get(BSpaceStorageHandler.instance());
-		} catch (IllegalArgumentException | IllegalAccessException e) {
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		if(links == null)
@@ -216,7 +218,9 @@ public class JabbaBarrelTileHandler extends DefaultDollyTileHandler{
 			fieldLinks = BSpaceStorageHandler.class.getDeclaredField("links");
 			fieldLinks.setAccessible(true);
 			return fieldLinks;
-		} catch (NoSuchFieldException | SecurityException e) {
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e){
 			e.printStackTrace();
 		}
 		return null;

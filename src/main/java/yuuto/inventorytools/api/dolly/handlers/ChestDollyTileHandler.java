@@ -17,7 +17,7 @@ public class ChestDollyTileHandler extends InventoryDollyTileHandler{
 		return instance;
 	}
 	
-	private ChestDollyTileHandler(){}
+	protected ChestDollyTileHandler(){}
 	
 	@Override
 	public void onPickedUp(TileEntity tile, BlockData data,
