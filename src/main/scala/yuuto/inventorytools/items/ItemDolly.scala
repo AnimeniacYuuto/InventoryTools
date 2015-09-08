@@ -23,14 +23,14 @@ import yuuto.inventorytools.InventoryTools
 import yuuto.inventorytools.api.dolly.BlockData
 import yuuto.inventorytools.api.dolly.DollyHandlerRegistry
 import yuuto.inventorytools.ref.ReferenceInvTools
+import yuuto.inventorytools.until.LogHelperIT
 import yuuto.yuutolib.item.ModItem
 import cpw.mods.fml.relauncher.Side
 import net.minecraft.client.resources.I18n
-import net.minecraft.util.MovingObjectPosition
+import net.minecraft.util.{Vec3, MovingObjectPosition, IIcon}
 import net.minecraft.util.MovingObjectPosition.MovingObjectType
 import yuuto.inventorytools.util.NBTHelper
 import yuuto.inventorytools.util.NBTTags
-import net.minecraft.util.IIcon
 import net.minecraft.client.renderer.texture.IIconRegister
 
 object ItemDolly{
@@ -75,10 +75,13 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
       return stack;
     if(world.isRemote || !player.isSneaking())
         return stack;
-    val blockPos:MovingObjectPosition = player.rayTrace(7, 0.0F);
-    if(blockPos.typeOfHit == MovingObjectType.MISS){
-      switchMode(stack, player, world, blockPos.blockX, blockPos.blockY, blockPos.blockZ, 0, blockPos.blockX, blockPos.blockY, blockPos.blockZ);
+    val blockPos:MovingObjectPosition = world.rayTraceBlocks(Vec3.createVectorHelper(player.posX, player.posY+player.getEyeHeight, player.posZ), player.getLookVec);
+    if(blockPos == null || blockPos.typeOfHit == MovingObjectType.MISS){
+      switchMode(stack, player, world);
       player.swingItem();
+    }else{
+      LogHelperIT.Debug("block pos type: "+blockPos.typeOfHit.toString);
+      LogHelperIT.Debug("block name: "+world.getBlock(blockPos.blockX, blockPos.blockY, blockPos.blockZ).getLocalizedName);
     }
     return stack;
   }
@@ -186,7 +189,7 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
     player.inventoryContainer.detectAndSendChanges();
     return true;
   }
-  def switchMode(stack:ItemStack, player:EntityPlayer, world:World, x:Int, y:Int, z:Int, side:Int, hitX:Float, hitY:Float, hitZ:Float):Boolean={
+  def switchMode(stack:ItemStack, player:EntityPlayer, world:World):Boolean={
     if(!NBTHelper.hasTag(stack, NBTTags.DOLLY_DATA)){
       stack.setItemDamage(0);
       player.inventoryContainer.detectAndSendChanges();
