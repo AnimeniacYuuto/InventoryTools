@@ -20,11 +20,8 @@ import net.minecraft.item.Item
 import yuuto.inventorytools.gui.GuiHandler
 import yuuto.inventorytools.items.ItemToolBox
 import yuuto.inventorytools.ref.ReferenceInvTools
-import yuuto.inventorytools.network.MessageToolBench
-import yuuto.inventorytools.network.MessageToolBenchHandler
+import yuuto.inventorytools.network._
 import yuuto.inventorytools.tiles.TileToolBench
-import yuuto.inventorytools.network.MessageToolBoxHandler
-import yuuto.inventorytools.network.MessageToolBox
 import yuuto.inventorytools.proxy.ProxyCommon
 import cpw.mods.fml.common.SidedProxy
 
@@ -49,6 +46,7 @@ object InventoryTools {
     network = NetworkRegistry.INSTANCE.newSimpleChannel(ReferenceInvTools.CHANNEL);
     network.registerMessage(classOf[MessageToolBenchHandler], classOf[MessageToolBench], 0, Side.SERVER);
     network.registerMessage(classOf[MessageToolBoxHandler], classOf[MessageToolBox], 1, Side.SERVER);
+    network.registerMessage(classOf[MessageKeyPressHandler], classOf[MessageKeyPress], 2, Side.SERVER);
   }
 
   @EventHandler

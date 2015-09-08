@@ -33,13 +33,9 @@ import yuuto.inventorytools.util.NBTHelper
 import yuuto.inventorytools.util.NBTTags
 import net.minecraft.client.renderer.texture.IIconRegister
 
-object ItemDolly{
-  var isPickingUp:Boolean=false;
-}
 class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab, ReferenceInvTools.MOD_ID, name){
   setMaxStackSize(1);
   this.hasSubtypes=true;
-  MinecraftForge.EVENT_BUS.register(this);
   val icons:Array[IIcon]=new Array[IIcon](3);
   
   @SideOnly(Side.CLIENT)
@@ -66,26 +62,8 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
   override def getIconFromDamage(meta:Int):IIcon={
     if(meta < 0 || meta >= icons.length)
       return this.itemIcon;
-    return icons(meta);
+    icons(meta);
   }
-  
-  
-  override def onItemRightClick(stack:ItemStack, world:World, player:EntityPlayer):ItemStack={
-    if(stack.getItemDamage() != 1 && stack.getItemDamage() != 2)
-      return stack;
-    if(world.isRemote || !player.isSneaking())
-        return stack;
-    val blockPos:MovingObjectPosition = world.rayTraceBlocks(Vec3.createVectorHelper(player.posX, player.posY+player.getEyeHeight, player.posZ), player.getLookVec);
-    if(blockPos == null || blockPos.typeOfHit == MovingObjectType.MISS){
-      switchMode(stack, player, world);
-      player.swingItem();
-    }else{
-      LogHelperIT.Debug("block pos type: "+blockPos.typeOfHit.toString);
-      LogHelperIT.Debug("block name: "+world.getBlock(blockPos.blockX, blockPos.blockY, blockPos.blockZ).getLocalizedName);
-    }
-    return stack;
-  }
-  override def doesSneakBypassUse( world:World, x:Int, y:Int, z:Int, player:EntityPlayer):Boolean=true;
   override def isItemTool(stack:ItemStack):Boolean=true;
   
   @SideOnly(Side.CLIENT)
@@ -112,7 +90,7 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
     if(stack.getItemDamage() == 2){
       return transferInventory(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
     }
-    return false;
+    false;
   }
   def onPickUpBlock(stack:ItemStack, player:EntityPlayer, world:World, x:Int, y:Int, z:Int, side:Int, hitX:Float, hitY:Float, hitZ:Float):Boolean={
     val b:Block=world.getBlock(x, y, z);
@@ -128,12 +106,10 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
     if(!NBTHelper.setDollyData(stack, blockData))
       return false;
     stack.setItemDamage(1);
-    ItemDolly.isPickingUp=true;
     world.removeTileEntity(x, y, z);
     world.setBlockToAir(x, y, z);
-    ItemDolly.isPickingUp=false;
     player.inventoryContainer.detectAndSendChanges();
-    return true;
+    true;
   }
   def onPlaceBlock(stack:ItemStack, player:EntityPlayer, world:World, x:Int, y:Int, z:Int, side:Int, hitX:Float, hitY:Float, hitZ:Float):Boolean={
     if(!NBTHelper.hasTag(stack, NBTTags.DOLLY_DATA)){
@@ -160,7 +136,7 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
     NBTHelper.removeTag(stack, NBTTags.DOLLY_DATA);
     stack.setItemDamage(0);
     player.inventoryContainer.detectAndSendChanges();
-    return true;
+    true;
   }
   def transferInventory(stack:ItemStack, player:EntityPlayer, world:World, x:Int, y:Int, z:Int, side:Int, hitX:Float, hitY:Float, hitZ:Float):Boolean={
     if(!NBTHelper.hasTag(stack, NBTTags.DOLLY_DATA)){
@@ -187,7 +163,7 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
       stack.setItemDamage(1);
     }
     player.inventoryContainer.detectAndSendChanges();
-    return true;
+    true;
   }
   def switchMode(stack:ItemStack, player:EntityPlayer, world:World):Boolean={
     if(!NBTHelper.hasTag(stack, NBTTags.DOLLY_DATA)){
@@ -220,13 +196,6 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
       player.inventoryContainer.detectAndSendChanges();
       return stack.getItemDamage()==1;
     }
-    return false;
-  }
-  
-  @SubscribeEvent
-  def onEntitySpawn(event:EntityJoinWorldEvent){
-    //if(event.entity.isInstanceOf[EntityItem] && ItemDolly.isPickingUp){
-    //  event.setCanceled(true);
-    //}
+    false;
   }
 }

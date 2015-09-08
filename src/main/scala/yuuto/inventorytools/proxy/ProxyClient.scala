@@ -13,6 +13,7 @@ class ProxyClient extends ProxyCommon{
   override def preInit(event:FMLPreInitializationEvent){
     super.preInit(event);
     ClientRegistry.registerKeyBinding(KeyBindings.TOOL_BOX);
+    ClientRegistry.registerKeyBinding(KeyBindings.DOLLY_MODE);
     FMLCommonHandler.instance().bus().register(InputHandler);
   }
   
