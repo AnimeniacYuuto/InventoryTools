@@ -141,7 +141,7 @@ public class JabbaBarrelTileHandler extends DefaultDollyTileHandler{
 		while(!flag && storage.hasItem() && storage.getAmount() > 0){
 			ItemStack stack1=storage.getStack();
 			int orig=stack1.stackSize;
-			InventoryMerger.mergeStackIntoInventory(stack1, target);
+			InventoryMerger.mergeStackIntoInventory(stack1, target, side);
 			storage.addStack(stack1);
 			int dif = orig-stack1.stackSize;
 			if(dif == 0){

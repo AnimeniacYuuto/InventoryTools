@@ -77,7 +77,7 @@ public class StorageDrawersDollyTileHandler extends DefaultDollyTileHandler{
 				if(!drawer.canItemBeExtracted(stack))
 					break;
 				int orig = stack.stackSize;
-				InventoryMerger.mergeStackIntoInventory(stack, target);
+				InventoryMerger.mergeStackIntoInventory(stack, target, side);
 				int dif = orig-stack.stackSize;
 				if(dif == 0)
 					break;

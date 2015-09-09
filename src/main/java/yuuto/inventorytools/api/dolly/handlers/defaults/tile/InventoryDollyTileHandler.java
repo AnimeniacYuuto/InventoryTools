@@ -24,7 +24,7 @@ public abstract class InventoryDollyTileHandler extends DefaultDollyTileHandler{
 			ItemStack stack=ItemStack.loadItemStackFromNBT(nbt);
 			if(stack == null)
 				continue;
-			InventoryMerger.mergeStackIntoInventory(stack, target);
+			InventoryMerger.mergeStackIntoInventory(stack, target, side);
 			if(stack.stackSize > 0){
 				nbt = stack.writeToNBT(nbt);
 				tagList2.appendTag(nbt);
