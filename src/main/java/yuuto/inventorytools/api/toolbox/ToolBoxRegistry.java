@@ -52,7 +52,7 @@ public final class ToolBoxRegistry {
 	}
 	public final static boolean addToWhiteList(String id){
 		String[] parts = id.split(":", 4);
-		if(parts == null || parts.length < 1)
+		if(parts.length < 1)
 			return false;
 		ItemStack stack = GameRegistry.findItemStack(parts.length==1 ? "minecraft" : parts[0], parts.length==1 ? parts[0] : parts[1], 1);
 		if(stack == null)
@@ -67,10 +67,10 @@ public final class ToolBoxRegistry {
 				meta=OreDictionary.WILDCARD_VALUE;
 			}
 		}
-		return addToBlackList(new ItemData(stack.getItem(), meta));
+		return addToWhiteList(new ItemData(stack.getItem(), meta));
 	}
 	public final static boolean addToWhiteList(Item i, int meta){
-		return addToBlackList(new ItemData(i, meta));
+		return addToWhiteList(new ItemData(i, meta));
 	}
 	public final static boolean addToWhiteList(ItemData data){
 		return whiteList.add(data);
