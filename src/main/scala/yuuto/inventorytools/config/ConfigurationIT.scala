@@ -5,6 +5,7 @@ package yuuto.inventorytools.config
 
 import cpw.mods.fml.common.event.FMLPostInitializationEvent
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
+import net.minecraft.item.{ItemStack, Item}
 import net.minecraftforge.common.config.Configuration
 import yuuto.inventorytools.api.dolly.DollyHandlerRegistry
 import yuuto.inventorytools.api.toolbox.ToolBoxRegistry
@@ -20,6 +21,7 @@ object ConfigurationIT {
   def preInit(event:FMLPreInitializationEvent){
     val config=new Configuration(event.getSuggestedConfigurationFile());
     config.load();
+    LogHelperIT.debug= config.getBoolean("DebugLogs", "Debug", false, "Should debug lines be output to the console")
     maxTools = config.getInt("MaxTools", "ToolBox", maxTools, 1, 18, "The number of tools that can be stored in a toolbox");
     toolWhiteList=config.getStringList("WhiteList", "ToolBox", Array("LogisticsPipes:item.remoteOrdererItem", "LogisticsPipes:item.pipeController", "Railcraft:tool.whistle.tuner", "Enchiridion:items", "Steamcraft:wrench"), "A list of items that can be put in a toolbox as tools Formats: ItemName, ModName:ItemName, ModName:ItemName:Meta");
     toolBlackList=config.getStringList("BlackList", "ToolBox", Array(), "A list of items that CANNOT be put in a toolbox as tools Formats: ItemName, ModName:ItemName, ModName:ItemName:Meta");
@@ -56,5 +58,20 @@ object ConfigurationIT {
       }
       toolBlackList=null;
     }
+    /*if(Loader.isModLoaded("LogisticsPipes")){
+      val remote:Item=LogisticsPipes.LogisticsRemoteOrderer;
+      if(remote == null){
+        LogHelperIT.Debug("Remote Orderer Not Initialized!");
+      }else{
+        val id:UniqueIdentifier = GameRegistry.findUniqueIdentifierFor(remote);
+        if(id == null){
+          LogHelperIT.Debug("No ID for Remote Orderer");
+        }else{
+          LogHelperIT.Debug("Remote Orderer ID= "+id.modId+":"+id.name);
+          val itm:ItemStack= GameRegistry.findItemStack(id.modId, id.name, 1);
+          LogHelperIT.Debug("ItemStack Found ? "+(itm!=null)+" && item matches remote orderer ? "+(itm==remote));
+        }
+      }
+    }*/
   }
 }

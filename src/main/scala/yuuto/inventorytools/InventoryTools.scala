@@ -25,7 +25,7 @@ import yuuto.inventorytools.tiles.TileToolBench
 import yuuto.inventorytools.proxy.ProxyCommon
 import cpw.mods.fml.common.SidedProxy
 
-@Mod(modid = ReferenceInvTools.MOD_ID, name = ReferenceInvTools.MOD_NAME, version = ReferenceInvTools.VERSION, modLanguage = "scala")
+@Mod(modid = ReferenceInvTools.MOD_ID, name = ReferenceInvTools.MOD_NAME, version = ReferenceInvTools.VERSION, dependencies = "after:LogisticsPipes",modLanguage = "scala")
 object InventoryTools {
   
   var network:SimpleNetworkWrapper=null;
