@@ -5,11 +5,6 @@ package yuuto.inventorytools.config
 
 import cpw.mods.fml.common.event.FMLPostInitializationEvent
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
-import cpw.mods.fml.common.registry
-import cpw.mods.fml.common.registry.GameRegistry
-import cpw.mods.fml.common.registry.GameRegistry.UniqueIdentifier
-import logisticspipes.LogisticsPipes
-import net.minecraft.item.ItemStack
 import net.minecraftforge.common.config.Configuration
 import yuuto.inventorytools.api.dolly.DollyHandlerRegistry
 import yuuto.inventorytools.api.toolbox.ToolBoxRegistry
@@ -61,7 +56,5 @@ object ConfigurationIT {
       }
       toolBlackList=null;
     }
-    val id:UniqueIdentifier=GameRegistry.findUniqueIdentifierFor(LogisticsPipes.LogisticsRemoteOrderer);
-    LogHelperIT.Debug("Remote Orderer= "+id.modId+":"+id.name);
   }
 }

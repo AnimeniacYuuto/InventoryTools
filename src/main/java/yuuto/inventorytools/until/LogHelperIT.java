@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Level;
 import cpw.mods.fml.common.FMLLog;
 
 public class LogHelperIT {
-	private static boolean debug = true;
+	private static boolean debug = false;
 	
 	public static void All(Object obj){
 		LogSpecial(Level.ALL, obj);
