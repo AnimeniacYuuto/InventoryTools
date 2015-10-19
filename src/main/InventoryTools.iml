@@ -12,16 +12,42 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Minecraft" />
     <orderEntry type="module" module-name="YuutoLib" />
+    <orderEntry type="library" name="scala-sdk-2.11.1" level="application" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../libs" />
+          <root url="jar://$MODULE_DIR$/../../libs/YuutoLib-1.7.10-1.0.2-dev.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../../libs" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="scala-sdk-2.11.1" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/ironchest-1.7.10-6.0.62.742-deobf.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/StorageDrawers-1.7.10-1.5.15.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/Jabba-1.2.1a_1.7.10-dev.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

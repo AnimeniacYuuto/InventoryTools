@@ -3,6 +3,7 @@
  */
 package yuuto.inventorytools.proxy
 
+import net.minecraft.init.Blocks
 import yuuto.yuutolib.IProxy
 import cpw.mods.fml.common.event.FMLInitializationEvent
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
@@ -45,17 +46,18 @@ class ProxyCommon extends IProxy{
     
     RecipeHelper.addShapedRecipe(true, new ItemStack(ProxyCommon.itemDolly), Array[Object](
         "g  ","gc ","ggg", 
-        'g'.asInstanceOf[Object], "ingotGold", 
+        'g'.asInstanceOf[Object], "ingotGold",
         'c'.asInstanceOf[Object], "chestWood"
     ));
     RecipeHelper.addShapedRecipe(true, new ItemStack(ProxyCommon.itemDollyAdvanced), Array[Object](
-        "d  ","dg ","ddd", 'd'.asInstanceOf[Object], "gemDiamond", 
+        "d  ","dg ","ddd",
+        'd'.asInstanceOf[Object], "gemDiamond",
         'g'.asInstanceOf[Object], new ItemStack(ProxyCommon.itemDolly)
     ));
     RecipeHelper.addShapedRecipe(true, new ItemStack(ProxyCommon.itemToolBox), Array[Object](
         "ibi","iri","iii", 
-        'i'.asInstanceOf[Object], "ingotIron", 
-        'b'.asInstanceOf[Object], "barsIron",
+        'i'.asInstanceOf[Object], "ingotIron",
+        'b'.asInstanceOf[Object], Blocks.iron_bars,
         'r'.asInstanceOf[Object], "dyeRed"
     ));
     RecipeHelper.addShapedRecipe(true, new ItemStack(ProxyCommon.blockToolBench), Array[Object](

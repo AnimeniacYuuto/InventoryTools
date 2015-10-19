@@ -194,6 +194,8 @@ public class JabbaBarrelTileHandler extends DefaultDollyTileHandler{
 		if(!BSpaceStorageHandler.instance().hasLinks(id))
 			return;
 		Field linksField = getTransformedLinksField();
+		if(linksField == null)
+			return;;
 		HashMap<Integer, HashSet<Integer>> links = null;
 		try {
 			links = (HashMap<Integer, HashSet<Integer>>)linksField.get(BSpaceStorageHandler.instance());
