@@ -20,14 +20,14 @@ buildscript {
 apply plugin: 'scala'
 apply plugin: 'forge'
 
-ext.yuutolibVersion = "1.0.2"
+ext.yuutolibVersion = "1.0.3"
 
-version = "1.7.10-1.0.5"
+version = "1.7.10-1.0.6"
 group= "yuuto.inventorytools" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "InventoryTools"
 
 minecraft {
-    version = "1.7.10-10.13.4.1492-1.7.10"
+    version = "1.7.10-10.13.4.1614-1.7.10"
     runDir = "eclipse"
 }
 
@@ -36,7 +36,7 @@ configurations {
 }
 
 dependencies {
-	compile files("libs/YuutoLib-1.7.10-1.0.2-dev.jar")
+	compile files("libs/YuutoLib-1.7.10-1.0.3-dev.jar")
 	
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..

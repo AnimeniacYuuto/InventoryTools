@@ -1,9 +1,6 @@
 package yuuto.inventorytools.api.dolly;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
@@ -16,15 +13,25 @@ import yuuto.inventorytools.until.LogHelperIT;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class DollyHandlerRegistry {
-	
+
 	private final static IDollyBlockHandler defaultBlockHandler=new DefaultDollyBlockHandler();
 	private final static IDollyTileHandler defaultTileHandler=new DefaultDollyTileHandler();
 	private final static List<BlockData> blackListAll=new LinkedList<BlockData>();
 	private final static List<BlockData> blackListNormal=new LinkedList<BlockData>();
+	private final static Set<String> blackListModsAll=new HashSet<String>();
+	private final static Set<String> blackListModsNormal=new HashSet<String>();
 	private final static Map<Class<? extends TileEntity>, IDollyTileHandler> tileMap = new HashMap<Class<? extends TileEntity>, IDollyTileHandler>();
 	private final static Map<String, IDollyTileHandler> tileHandlerMap = new HashMap<String, IDollyTileHandler>();
 	private final static Map<BlockData, IDollyBlockHandler> blockMap=new HashMap<BlockData, IDollyBlockHandler>();
-	
+	private static boolean blackList=true;
+	private static boolean blackListMods=true;
+
+	public final static void InvertBlocks(){
+		blackList = false;
+	}
+	public final static void InvertMods(){
+		blackListMods = false;
+	}
 	public final static boolean addToBlackListAll(String id){
 		String[] parts = id.split(":", 4);
 		if(parts == null || parts.length < 1)
@@ -45,7 +52,7 @@ public final class DollyHandlerRegistry {
 	public final static boolean addToBlackListAll(Block b, int meta){
 		return addToBlackListAll(new BlockData(b, meta));
 	}
-	public final static boolean addToBlackListAll(BlockData data){
+	public final static boolean addToBlackListAll(BlockData data) {
 		return blackListAll.add(data);
 	}
 	public final static boolean addToBlackListNormal(String id){
@@ -70,6 +77,12 @@ public final class DollyHandlerRegistry {
 	}
 	public final static boolean addToBlackListNormal(BlockData data){
 		return blackListNormal.add(data);
+	}
+	public final static boolean addToBlackListModsAll(String mod){
+		return blackListModsAll.add(mod);
+	}
+	public final static boolean addToBlackListModsNormal(String mod){
+		return blackListModsNormal.add(mod);
 	}
 	
 	public final static boolean registerBlockHandler(String id, IDollyBlockHandler handler){
@@ -121,10 +134,19 @@ public final class DollyHandlerRegistry {
 	}
 	public final static boolean isBlackListed(Block b, int meta, boolean advanced){
 		if(isBlackListedForAll(b, meta))
+			return blackList;
+		if(advanced != blackList && isBlackListedForNormal(b, meta))
+			return blackList;
+		if(isModBlackListed(b, advanced))
 			return true;
-		if(!advanced)
-			return isBlackListedForNormall(b, meta);
-		return false;
+		return !blackList;
+	}
+	public final static boolean isModBlackListed(Block b, boolean advanced){
+		if(isModBlackListedForAll(b))
+			return blackListMods;
+		if(advanced != blackListMods && isModBlackListedForNormal(b))
+			return blackListMods;
+		return !blackListMods;
 	}
 	public final static IDollyTileHandler getTileHandler(TileEntity tile){
 		for(Class<? extends TileEntity> clazz : tileMap.keySet()){
@@ -157,12 +179,20 @@ public final class DollyHandlerRegistry {
 		}
 		return false;
 	}
-	private final static boolean isBlackListedForNormall(Block b, int meta){
+	private final static boolean isBlackListedForNormal(Block b, int meta){
 		for(BlockData d : blackListNormal){
 			if(d.block == b && (d.meta == OreDictionary.WILDCARD_VALUE || d.meta == meta))
 				return true;
 		}
 		return false;
+	}
+	private final static boolean isModBlackListedForAll(Block block){
+		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(block);
+		return blackListModsAll.contains(id.modId);
+	}
+	private final static boolean isModBlackListedForNormal(Block block){
+		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(block);
+		return blackListModsNormal.contains(id.modId);
 	}
 	private final boolean contains(Class<? extends TileEntity> tileClass){
 		for(Class<? extends TileEntity> clazz : tileMap.keySet()){

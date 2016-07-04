@@ -16,13 +16,17 @@ public final class ToolBoxRegistry {
 	
 	private final static List<ItemData> blackList=new LinkedList<ItemData>();
 	private final static List<ItemData> whiteList=new LinkedList<ItemData>();
-	
+	private static  boolean whiteListOnly=false;
+
+	public static void setWhiteListOnly(){
+		whiteListOnly = true;
+	}
 	public static final boolean isValidTool(ItemStack stack){
 		if((stack.getItem() instanceof ItemBlock) || (stack.getItem() instanceof ItemPotion) || (stack.getItem() instanceof ItemArmor) || (stack.getItem() instanceof ItemBucket))
 			return false;
 		if(isWhiteListed(stack))
 			return true;
-		if(isBlackListed(stack))
+		if(whiteListOnly || isBlackListed(stack))
 			return false;
 		return stack.getMaxStackSize() == 1 && !(stack.getItem() instanceof ItemBlock) && !(stack.getItem() instanceof ItemPotion) && !(stack.getItem() instanceof ItemArmor) && !(stack.getItem() instanceof ItemBucket);
 	}

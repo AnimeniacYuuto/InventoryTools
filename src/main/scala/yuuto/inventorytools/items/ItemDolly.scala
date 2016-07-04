@@ -8,6 +8,8 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.relauncher.SideOnly
 import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
@@ -15,6 +17,7 @@ import net.minecraft.item.EnumAction
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.potion.PotionEffect
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
@@ -22,6 +25,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import yuuto.inventorytools.InventoryTools
 import yuuto.inventorytools.api.dolly.BlockData
 import yuuto.inventorytools.api.dolly.DollyHandlerRegistry
+import yuuto.inventorytools.config.ConfigurationIT
 import yuuto.inventorytools.ref.ReferenceInvTools
 import yuuto.inventorytools.until.LogHelperIT
 import yuuto.yuutolib.item.ModItem
@@ -41,6 +45,19 @@ class ItemDolly(name:String, val adv:Boolean) extends ModItem(InventoryTools.tab
   @SideOnly(Side.CLIENT)
   override def getSubItems(item:Item, tab:CreativeTabs, subItems:List[_]){
     subItems.asInstanceOf[List[ItemStack]].add(new ItemStack(this, 1, 0));
+  }
+
+  override def onUpdate (p_77663_1_ : ItemStack, p_77663_2_ : World, p_77663_3_ : Entity, p_77663_4_ : Int, p_77663_5_ : Boolean) {
+    super.onUpdate(p_77663_1_, p_77663_2_, p_77663_3_, p_77663_4_, p_77663_5_);
+    if (adv && !ConfigurationIT.advEffects)
+      return;
+    if (p_77663_1_.getItemDamage != 0 && p_77663_3_.isInstanceOf[EntityLivingBase]) {
+      val el: EntityLivingBase = p_77663_3_.asInstanceOf[EntityLivingBase];
+      val potions: Array[PotionEffect] = ConfigurationIT.dollyEffects;
+      for (i <- potions) {
+        el.addPotionEffect(new PotionEffect(i));
+      }
+    }
   }
   
   @SideOnly(Side.CLIENT)

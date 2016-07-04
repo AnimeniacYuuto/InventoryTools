@@ -11,9 +11,10 @@ public class LogHelperIT {
 		LogSpecial(Level.ALL, obj);
 	}
 	public static void Debug(Object obj){
-		if(debug)
+		if(debug) {
 			Info(obj);
-		LogSpecial(Level.DEBUG, obj);
+			LogSpecial(Level.DEBUG, obj);
+		}
 	}
 	public static void Error(Object obj){
 		LogSpecial(Level.ERROR, obj);
