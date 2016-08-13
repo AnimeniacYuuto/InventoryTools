@@ -22,7 +22,7 @@ apply plugin: 'forge'
 
 ext.yuutolibVersion = "1.0.3"
 
-version = "1.7.10-1.0.6"
+version = "1.7.10-1.0.7"
 group= "yuuto.inventorytools" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "InventoryTools"
 

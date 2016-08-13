@@ -5,6 +5,7 @@ package yuuto.inventorytools.client
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.InputEvent
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.client.Minecraft
 import yuuto.inventorytools.network.MessageKeyPress
@@ -17,6 +18,7 @@ import cpw.mods.fml.client.FMLClientHandler
 import net.minecraft.util.ChatComponentText
 import yuuto.inventorytools.proxy.ProxyCommon
 
+@SideOnly(Side.CLIENT)
 object InputHandler {
   
   @SubscribeEvent
@@ -43,6 +45,8 @@ object InputHandler {
     player.openGui(InventoryTools, 1, player.worldObj, player.posX.asInstanceOf[Int], player.posY.asInstanceOf[Int], player.posZ.asInstanceOf[Int])
   }
   def switchDollyMode(player:EntityPlayer){
+    if(player.inventory.getCurrentItem == null)
+      return;
     if(player.inventory.getCurrentItem.getItem==ProxyCommon.itemDolly || player.inventory.getCurrentItem.getItem==ProxyCommon.itemDollyAdvanced) {
       InventoryTools.network.sendToServer(new MessageKeyPress(ITKeyBinds.DOLLY_MODE, player.worldObj.provider.dimensionId, player.posX.toInt, player.posY.toInt, player.posZ.toInt))
     }
